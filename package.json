@@ -1,0 +1,31 @@
+{
+  "name": "wordlist-generator",
+  "version": "0.1.0",
+  "description": "Generate a word list by processing other word list files",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jabney/wordlist-generator.git"
+  },
+  "keywords": [
+    "word",
+    "list",
+    "wordlist",
+    "generator",
+    "processor"
+  ],
+  "author": "James Abney",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/jabney/wordlist-generator/issues"
+  },
+  "homepage": "https://github.com/jabney/wordlist-generator#readme",
+  "devDependencies": {
+    "@types/node": "^11.13.6",
+    "typescript": "^3.4.4"
+  },
+  "files": ["./lib"]
+}
