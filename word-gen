@@ -1,0 +1,3 @@
+#!/bin/sh
+
+npm run build && node lib/index --words data/words --exclude data/exclude --out temp/words.json
