@@ -27,5 +27,10 @@
     "@types/node": "^11.13.6",
     "typescript": "^3.4.4"
   },
-  "files": ["./lib"]
+  "files": [
+    "./lib"
+  ],
+  "dependencies": {
+    "regex-each": "^1.0.3"
+  }
 }
