@@ -114,7 +114,6 @@ async function generate(args: IGenArgs) {
   const stats = buildWordLengthStats(wordLengthMap)
   console.log(stats)
   console.log(`wrote ${words.size} words to ${args.out}`)
-
 }
 
 async function main() {
