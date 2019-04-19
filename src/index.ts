@@ -85,6 +85,9 @@ function buildWordLengthMap(words: Set<string>) {
   return lengthMap
 }
 
+/**
+ * Generate a set of words and a word-length map.
+ */
 async function generate(args: IGenArgs) {
   const wordPaths = await allPaths(args.words)
   const excludePaths = await allPaths(args.exclude)
@@ -105,17 +108,12 @@ async function generate(args: IGenArgs) {
   })
 
   // Build the word length map.
-  const wordLengthMap = buildWordLengthMap(words)
-
-  const wordsFile = fs.createWriteStream(args.out)
-  const json = JSON.stringify(wordLengthMap, null, 2)
-  wordsFile.write(json)
-
-  const stats = buildWordLengthStats(wordLengthMap)
-  console.log(stats)
-  console.log(`wrote ${words.size} words to ${args.out}`)
+  return [words, buildWordLengthMap(words)] as [Set<string>, {[key: number]: string[]}]
 }
 
+/**
+ *
+ */
 async function main() {
   const args = parseArgs<IGenArgs>($info, $schema)
 
@@ -137,26 +135,8 @@ async function main() {
 
   console.log(`generating word list to ${args.out}`)
 
-  const wordPaths = await allPaths(args.words)
-  const excludePaths = await allPaths(args.exclude)
-  const isExcluded = await filterExcluded(excludePaths)
-
-  // Store words in a set to remove duplicates.
-  const words = new Set<string>()
-
-  await readStreams(wordPaths, async (word) => {
-    // If a word is not alphabetical, do nothing.
-    if (!/^[a-z]+$/i.test(word)) { return }
-
-    // Check if the word is excluded.
-    if (!isExcluded(word)) {
-      // Add the lower-cased word to the set.
-      words.add(word.toLowerCase())
-    }
-  })
-
   // Build the word length map.
-  const wordLengthMap = buildWordLengthMap(words)
+  const [words, wordLengthMap] = await generate(args)
 
   const wordsFile = fs.createWriteStream(args.out)
   const json = JSON.stringify(wordLengthMap, null, 2)
